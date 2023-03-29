@@ -17,7 +17,6 @@ services:
     depends_on:   # new
       - web-db
 
-  # new
   web-db:
     build:
       context: ./project/db

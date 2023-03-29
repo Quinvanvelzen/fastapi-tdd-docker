@@ -1,7 +1,7 @@
-# content of test_sample.py
-def func(x):
-    return x + 1
+# project/tests/test_ping.py
 
 
-def test_answer():
-    assert func(3) == 4
+def test_ping(test_app):
+    response = test_app.get("/ping")
+    assert response.status_code == 200
+    assert response.json() == {"environment": "dev", "ping": "pong!", "testing": True}

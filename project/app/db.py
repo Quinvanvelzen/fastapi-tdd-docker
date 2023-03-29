@@ -8,8 +8,7 @@ from fastapi import FastAPI
 from tortoise import Tortoise, run_async  # new
 from tortoise.contrib.fastapi import register_tortoise
 
-
-log = logging.getLogger("uvicorn") # new
+log = logging.getLogger("uvicorn")  # new
 
 
 TORTOISE_ORM = {
@@ -24,6 +23,7 @@ TORTOISE_ORM = {
 
 
 def init_db(app: FastAPI) -> None:
+    # more information: https://tortoise-orm.readthedocs.io/en/latest/examples/fastapi.html
     register_tortoise(
         app,
         db_url=os.environ.get("DATABASE_URL"),
