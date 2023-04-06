@@ -28,6 +28,7 @@ async def create_summary(payload: SummaryPayloadSchema) -> SummaryResponseSchema
 async def read_all_summaries() -> List[SummarySchema]:
     return await crud.get_all()
 
+
 @router.delete("/{id}/", response_model=SummaryResponseSchema)
 async def delete_summary(id: int) -> SummaryResponseSchema:
     summary = await crud.get(id)
@@ -37,6 +38,7 @@ async def delete_summary(id: int) -> SummaryResponseSchema:
     await crud.delete(id)
 
     return summary
+
 
 @router.put("/{id}/", response_model=SummarySchema)
 async def update_summary(id: int, payload: SummaryUpdatePayloadSchema) -> SummarySchema:
