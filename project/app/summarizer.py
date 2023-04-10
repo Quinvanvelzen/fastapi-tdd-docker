@@ -1,17 +1,18 @@
 # project/app/summarizer.py
 
 
+import asyncio
+
 import nltk
 from newspaper import Article
 
+from app.models.tortoise import TextSummary
 
-def generate_summary(url: str) -> str:
+
+async def generate_summary(summary_id: int, url: str) -> None:
     article = Article(url)
-    print("Article URL")
     article.download()
-    print("Article Download")
     article.parse()
-    print("Article parse")
 
     try:
         nltk.data.find("tokenizers/punkt")
@@ -19,5 +20,9 @@ def generate_summary(url: str) -> str:
         nltk.download("punkt")
     finally:
         article.nlp()
-    print("Article parse")
-    return article.summary
+
+    summary = article.summary
+
+    await asyncio.sleep(10)
+
+    await TextSummary.filter(id=summary_id).update(summary=summary)
